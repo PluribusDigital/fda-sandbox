@@ -17,7 +17,7 @@ dependencies:
 
   post:
     # load .env from s3
-    #- aws s3 cp s3://open-fda/.env .env
+    - aws s3 cp s3://open-fda/.env .env
     - bundle exec rake bower:install
 
 test:
