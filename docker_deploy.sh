@@ -1,16 +1,22 @@
 #! /bin/bash
 set -e
 
+BUILD_TAG=$1
+ORG=$2
+DOCKER_PROJECT=$3
+ENV_NAME=$4
+APP_NAME=$ENV_NAME
+
 DOCKERRUN_FILE=Dockerrun.aws.json
 
 # Deploy web image to Docker Hub
-docker push stsilabs/openfda-web:$CIRCLE_BUILD_NUM
+docker push $ORG/$DOCKER_PROJECT:$BUILD_TAG
 
 if [ "$DOCKER_IMAGE_LATEST" = "true"  ]
 then
   # Tag as latest and push again
-  docker tag stsilabs/openfda-web:$CIRCLE_BUILD_NUM stsilabs/openfda-web:eval
-  docker push stsilabs/openfda-web:eval
+  docker tag $ORG/$DOCKER_PROJECT:$BUILD_TAG $ORG/$DOCKER_PROJECT:eval
+  docker push $ORG/$DOCKER_PROJECT:eval
 fi
 
 # Create new Elastic Beanstalk version
@@ -30,12 +36,12 @@ sed -e "s/<TAG>/eval/" \
 zip -r $DOCKERRUN_FILE.zip $DOCKERRUN_FILE .ebextensions
 
 aws s3 cp $DOCKERRUN_FILE.zip s3://$EB_BUCKET/$DOCKERRUN_FILE.zip
-aws elasticbeanstalk create-application-version --application-name open-fda-stsi \
-  --version-label $CIRCLE_BUILD_NUM --source-bundle S3Bucket=$EB_BUCKET,S3Key=$DOCKERRUN_FILE.zip \
+aws elasticbeanstalk create-application-version --application-name $APP_NAME \
+  --version-label $BUILD_TAG --source-bundle S3Bucket=$EB_BUCKET,S3Key=$DOCKERRUN_FILE.zip \
   --region us-east-1
 
 # Update Elastic Beanstalk environment to new version
-aws elasticbeanstalk update-environment --environment-name open-fda-stsi \
-    --version-label $CIRCLE_BUILD_NUM --region us-east-1
+aws elasticbeanstalk update-environment --environment-name $ENV_NAME \
+    --version-label $BUILD_TAG --region us-east-1
 	
 cd ../..
