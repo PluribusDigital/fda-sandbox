@@ -37,8 +37,8 @@
       ]
     },
     {
-      "name": "openfda-web",
-      "image": "stsilabs/openfda-web:<TAG>",
+      "name": "DOCKER_PROJECT>",
+      "image": "<ORG>/<DOCKER_PROJECT>:<TAG>",
       "environment": [
         {
           "name": "RAILS_ENV",
