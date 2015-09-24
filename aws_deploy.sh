@@ -15,7 +15,7 @@ cd deploy/beanstalk
 # variable substitutions
 sed -e "s/<TAG>/eval/" \
     -e "s/<ORG>/$ORG/" \
-    -e "s/<DOCKER_PROJECT>/DOCKER_PROJECT/" \
+    -e "s/<DOCKER_PROJECT>/$DOCKER_PROJECT/" \
     -e "s/<POSTGRES_USER>/$POSTGRES_USER/" \
     -e "s/<OPENFDA_POSTGRES_VERSION>/$OPENFDA_POSTGRES_VERSION/" \
     -e "s/<POSTGRES_PASSWORD>/$POSTGRES_PASSWORD/" \
