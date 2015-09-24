@@ -1,8 +1,9 @@
 #! /bin/bash
 set -e
 
-BUILD_TAG=$1
-ENV_NAME=$2
+ORG=$1
+DOCKER_PROJECT=$2
+ENV_NAME=$3
 APP_NAME=$ENV_NAME
 
 DOCKERRUN_FILE=Dockerrun.aws.json
@@ -13,6 +14,8 @@ EB_BUCKET=open-fda
 cd deploy/beanstalk
 # variable substitutions
 sed -e "s/<TAG>/eval/" \
+    -e "s/<ORG>/$ORG/" \
+    -e "s/<DOCKER_PROJECT>/DOCKER_PROJECT/" \
     -e "s/<POSTGRES_USER>/$POSTGRES_USER/" \
     -e "s/<OPENFDA_POSTGRES_VERSION>/$OPENFDA_POSTGRES_VERSION/" \
     -e "s/<POSTGRES_PASSWORD>/$POSTGRES_PASSWORD/" \
