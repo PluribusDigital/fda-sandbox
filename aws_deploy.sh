@@ -1,10 +1,11 @@
 #! /bin/bash
 set -e
 
-ORG=$1
+BUILD_TAG=$1
 DOCKER_PROJECT=$2
-ENV_NAME=$3
-APP_NAME=$ENV_NAME
+ORG=$3
+EB_ENV=$4
+APP_NAME=$EB_ENV
 
 DOCKERRUN_FILE=Dockerrun.aws.json
 
@@ -13,26 +14,25 @@ EB_BUCKET=open-fda
 
 cd deploy/beanstalk
 # variable substitutions
-sed -e "s/<TAG>/eval/" \
+sed -e "s/<TAG>/BUILD_TAG/" \
     -e "s/<ORG>/$ORG/" \
     -e "s/<DOCKER_PROJECT>/$DOCKER_PROJECT/" \
-    -e "s/<POSTGRES_USER>/$POSTGRES_USER/" \
-    -e "s/<OPENFDA_POSTGRES_VERSION>/$OPENFDA_POSTGRES_VERSION/" \
-    -e "s/<POSTGRES_PASSWORD>/$POSTGRES_PASSWORD/" \
+    -e "s/<POSTGRES_USER>/docker/" \
+    -e "s/<POSTGRES_PASSWORD>/password/" \
     -e "s/<OPENFDA_API_KEY>/$OPENFDA_API_KEY/" \
     -e "s/<NEW_RELIC_KEY>/$NEW_RELIC_KEY/" \
     < $DOCKERRUN_FILE.template > $DOCKERRUN_FILE
 
 # elastic beanstalk requires application source to be zipped
-zip -r $DOCKERRUN_FILE.zip $DOCKERRUN_FILE .ebextensions
+zip -r $EB_ENV.zip $DOCKERRUN_FILE .ebextensions
 
-aws s3 cp $DOCKERRUN_FILE.zip s3://$EB_BUCKET/$DOCKERRUN_FILE.zip
+aws s3 cp $EB_ENV.zip s3://$EB_BUCKET/$EB_ENV.zip
 aws elasticbeanstalk create-application-version --application-name $APP_NAME \
-  --version-label $BUILD_TAG --source-bundle S3Bucket=$EB_BUCKET,S3Key=$DOCKERRUN_FILE.zip \
+  --version-label $BUILD_TAG --source-bundle S3Bucket=$EB_BUCKET,S3Key=$EB_ENV.zip \
   --region us-east-1
 
 # Update Elastic Beanstalk environment to new version
-aws elasticbeanstalk update-environment --environment-name $ENV_NAME \
+aws elasticbeanstalk update-environment --environment-name $EB_ENV \
     --version-label $BUILD_TAG --region us-east-1
 	
 cd ../..

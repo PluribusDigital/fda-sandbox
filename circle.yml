@@ -3,12 +3,16 @@ machine:
     version: 3.4.2
   services:
     - docker
+  environment:
+    DOCKER_PROJECT: fda-sandbox-web
+    ORG: stsilabs
+    EB_ENV: fda-sandbox
 
 dependencies:
   pre:
     # build docker image
     - docker info
-    - docker build -t stsilabs/fda-sandbox-web:$CIRCLE_BUILD_NUM .:
+    - docker build -t $ORG/$DOCKER_PROJECT:$CIRCLE_BUILD_NUM .:
         timeout: 1800
     # install aws command line tools for elasticbean stalk deployment
     - pip install awscli
@@ -30,6 +34,9 @@ deployment:
   elasticbeanstalk:
     branch: master
     commands:
+    # push docker image
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWORD
-    - bash docker_deploy.sh $CIRCLE_BUILD_NUM fda-sandbox-web:
+    - docker push $ORG/$DOCKER_PROJECT:$BUILD_TAG
+    # deploy to AWS elastic beanstalk environment
+    - bash aws_deploy.sh $CIRCLE_BUILD_NUM $DOCKER_PROJECT $ORG $EB_ENV:
         timeout: 1800
