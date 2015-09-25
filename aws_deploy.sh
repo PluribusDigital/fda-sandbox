@@ -14,7 +14,7 @@ EB_BUCKET=open-fda
 
 cd deploy/beanstalk
 # variable substitutions
-sed -e "s/<TAG>/BUILD_TAG/" \
+sed -e "s/<TAG>/$BUILD_TAG/" \
     -e "s/<ORG>/$ORG/" \
     -e "s/<DOCKER_PROJECT>/$DOCKER_PROJECT/" \
     -e "s/<POSTGRES_USER>/docker/" \
