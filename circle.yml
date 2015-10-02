@@ -35,8 +35,8 @@ deployment:
     branch: master
     commands:
     # push docker image
-    - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWORD
-    - docker push $ORG/$DOCKER_PROJECT:$BUILD_TAG
+    #- docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWORD
+    #- docker push $ORG/$DOCKER_PROJECT:$BUILD_TAG
     # deploy to AWS elastic beanstalk environment
-    - bash aws_deploy.sh $CIRCLE_BUILD_NUM $DOCKER_PROJECT $ORG $EB_ENV:
+    - bash aws_deploy.sh 22 $DOCKER_PROJECT $ORG $EB_ENV:
         timeout: 1800
