@@ -13,7 +13,7 @@ dependencies:
     - "~/docker"
   pre:
     # load docker image from cache
-   - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
+    - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
     # build docker image
     - docker info
     - docker build -t $ORG/$DOCKER_PROJECT:$CIRCLE_BUILD_NUM .:
