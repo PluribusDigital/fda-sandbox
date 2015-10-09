@@ -24,11 +24,11 @@ sed -e "s/<TAG>/$BUILD_TAG/" \
     < $DOCKERRUN_FILE.template > $DOCKERRUN_FILE
 
 # elastic beanstalk requires application source to be zipped
-zip -r $EB_ENV.zip $DOCKERRUN_FILE .ebextensions
+zip -r $DOCKERRUN_FILE.zip $DOCKERRUN_FILE .ebextensions
 
-aws s3 cp $EB_ENV.zip s3://$EB_BUCKET/$EB_ENV.zip
+aws s3 cp $DOCKERRUN_FILE.zip s3://$EB_BUCKET/$EB_ENV/$DOCKERRUN_FILE.zip
 aws elasticbeanstalk create-application-version --application-name $APP_NAME \
-  --version-label $BUILD_TAG --source-bundle S3Bucket=$EB_BUCKET,S3Key=$EB_ENV.zip \
+  --version-label $BUILD_TAG --source-bundle S3Bucket=$EB_BUCKET,S3Key=$DOCKERRUN_FILE.zip \
   --region us-east-1
 
 # Update Elastic Beanstalk environment to new version
