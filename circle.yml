@@ -9,21 +9,16 @@ machine:
     EB_ENV: fda-sandbox
 
 dependencies:
-  cache_directories:
-    - "~/docker"
   pre:
-    # load docker image from cache
-    - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
     # build docker image
     - docker info
     - docker build -t $ORG/$DOCKER_PROJECT:$CIRCLE_BUILD_NUM .:
         timeout: 1800
-    # cache docker image
-    - mkdir -p ~/docker; docker save $ORG/$DOCKER_PROJECT > ~/docker/image.tar
     # install aws command line tools for elasticbean stalk deployment
     - pip install awscli
     # python setup
     - cd gruve && python setup.py develop
+
   post:
     # load .env from s3
     - aws s3 cp s3://open-fda/.env .env
