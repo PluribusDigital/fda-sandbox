@@ -38,6 +38,15 @@
 
   <div class="row" ng-show="drug">
     <div class="col-md-9">
+      <div style="margin-bottom:10px;">
+        <div style="display:inline">
+          <button class="btn btn-default" id="upvoteButton" type="submit" ng-click="upvote()" style="padding-top:7px;">
+            <span class="fa fa-thumbs-up"></span>
+            Upvote
+          </button>
+        </div>
+        <strong><div id="upvoteCount" class="col" style="display:inline">{{drug.upvotes}}</div></strong>
+      </div>
       <div><ng-include src="'Drug/adverseEvents.html'"></div>
       <div><ng-include src="'Drug/labelDetail.html'"></div>
       <div><ng-include src="'Drug/pricing.html'"></div>

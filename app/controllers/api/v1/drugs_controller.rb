@@ -32,7 +32,17 @@ module API::V1
       drug_object[:associated_ndcs] = drug.associated_ndcs
       drug_object[:product_type] = drug.unique_product_types
       @drug_result = {results:[drug_object]}
-    end 
+    end
+
+    def upvote
+      drug = Drug.canonical.find_by_product_ndc(params[:drug_id])
+      # return error code if drug not found
+      @error = { code: "NOT_FOUND", message: "No matches found for #{params[:drug_id]}!" } unless drug
+      return render template:'api/v1/shared/error' if @error
+      # now, record the upvote
+      drug.upvote
+      drug.save!
+    end
 
   end
 end

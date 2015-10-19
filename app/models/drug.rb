@@ -24,8 +24,12 @@ class Drug < ActiveRecord::Base
     return drugs_start_with + drugs_like.select{|d|!matched_names.include? d.proprietary_name}
   end
 
+  def upvote
+    self.upvotes = self.upvotes+= 1
+  end
+
   def core_attributes
-    keep_keys = %w(product_ndc proprietary_name nonproprietary_name dea_schedule)
+    keep_keys = %w(product_ndc proprietary_name nonproprietary_name dea_schedule upvotes)
     attributes.keep_if{|key,v| keep_keys.include? key }
   end 
 

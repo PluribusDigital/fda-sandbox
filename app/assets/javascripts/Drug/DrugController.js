@@ -63,6 +63,14 @@ function ($scope, $routeParams, $location, $timeout, drugService, eventService) 
         return $location.path("/drug/" + product_ndc);
     }
 
+    // upvote a drug
+    $scope.upvote = function() {
+        drugService.upvote($scope.selectedDrug.product_ndc, $scope.incrementUpvoteDisplay);
+    }
+    $scope.incrementUpvoteDisplay = function() {
+        $scope.drug.upvotes++; 
+    }
+
     // if we have a drug ID via the route, use that
     if ($routeParams.product_ndc) {
         $scope.drugLoading = true;

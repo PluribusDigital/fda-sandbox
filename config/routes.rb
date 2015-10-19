@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   # namespace APIs w/ version
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
-      resources :drugs, only:  [:index, :show]
+      resources :drugs, only:  [:index, :show] do 
+        get 'upvote', to:'drugs#upvote'
+      end
       resources :events, only: [:index]
       get 'node/drug/:product_ndc', to:'node#drug'
       get 'node/substance/:substance_name', to:'node#substance'
