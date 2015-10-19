@@ -15,8 +15,15 @@ feature "Drug Detail", js: true do
     # Generic Name
     expect(page).to have_content "SILDENAFIL CITRATE"
     # Effects 
-    expect(page).to have_content "PRURITUS"
+    expect(page).to have_content "TINNITUS"
   end # typeahead
+
+  scenario "upvote", smoke:true do 
+    visit "/#/drug/#{@viagra.product_ndc}"
+    expect(page).to have_css 'div#upvoteCount', text:"0"
+    click_button 'upvoteButton'
+    expect(page).to have_css 'div#upvoteCount', text:"1"
+  end
 
   scenario "info on recalls" do
     visit "/#/drug/#{@viagra.product_ndc}" 
