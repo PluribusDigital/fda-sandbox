@@ -37,7 +37,7 @@
       ]
     },
     {
-      "name": "DOCKER_PROJECT>",
+      "name": "fda-sandbox-web",
       "image": "<ORG>/<DOCKER_PROJECT>:<TAG>",
       "environment": [
         {
