@@ -27,6 +27,9 @@ gem "font-awesome-rails"
 
 gem 'newrelic_rpm'
 
+# just for fun :)
+gem 'cowsay', '~> 0.0.2'
+
 # Manage environment variables in .env file
 gem 'dotenv-rails'
 
