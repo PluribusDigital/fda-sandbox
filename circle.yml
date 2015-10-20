@@ -7,13 +7,13 @@ machine:
     DOCKER_PROJECT: fda-sandbox-web
     ORG: stsilabs
     EB_ENV: fda-sandbox
-    DEPLOY_HOME: $HOME/circle_deploy
-  post:
-    # preserve original version for deployment
-    - mkdir $DEPLOY_HOME
-    - cp -r * $DEPLOY_HOME
+    DEPLOY_HOME: circle_deploy
 dependencies:
   pre:
+      # build docker image
+    - docker info
+    - docker build -t $ORG/$DOCKER_PROJECT:$CIRCLE_BUILD_NUM .:
+        timeout: 1800
     # python setup
     - cd gruve && python setup.py develop
 
@@ -32,11 +32,6 @@ deployment:
   demo:
     branch: demo4
     commands:
-    # build docker image
-    - docker info
-    - docker build -t $ORG/$DOCKER_PROJECT:$CIRCLE_BUILD_NUM .:
-        timeout: 1800
-        pwd: $DEPLOY_HOME
     # push docker image
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWORD
     - docker push $ORG/$DOCKER_PROJECT:$BUILD_TAG
