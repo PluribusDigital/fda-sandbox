@@ -18,7 +18,7 @@ sed -e "s/<TAG>/$BUILD_TAG/" \
     -e "s/<ORG>/$ORG/" \
     -e "s/<DOCKER_PROJECT>/$DOCKER_PROJECT/" \
     -e "s/<POSTGRES_USER>/docker/" \
-    -e "s/<POSTGRES_PASSWORD>/password/" \
+    -e "s/<POSTGRES_PASSWORD>/docker" \
     -e "s/<OPENFDA_API_KEY>/$OPENFDA_API_KEY/" \
     -e "s/<NEW_RELIC_KEY>/$NEW_RELIC_KEY/" \
     < $DOCKERRUN_FILE.template > $DOCKERRUN_FILE
