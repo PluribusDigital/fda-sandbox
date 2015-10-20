@@ -2,7 +2,7 @@ checkout:
   post:
     # preserve original version for deployment
     - mkdir circle_deploy
-    - cp -r *. circle_deploy
+    - cp -r * circle_deploy
 machine:
   python:
     version: 3.4.2
