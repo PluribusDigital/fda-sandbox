@@ -1,5 +1,5 @@
 
-Demo
+Demo site
 
 Live Prototype URL: [RxExplore.com](http://rxexplore.com/) 
 
