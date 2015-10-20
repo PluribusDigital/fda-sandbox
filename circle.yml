@@ -1,3 +1,7 @@
+checkout:
+  post:
+    # preserve original version for deployment
+    cp -r *. /circle_deploy
 machine:
   python:
     version: 3.4.2
@@ -32,6 +36,7 @@ deployment:
     - docker info
     - docker build -t $ORG/$DOCKER_PROJECT:$CIRCLE_BUILD_NUM .:
         timeout: 1800
+        pwd: circle_deploy
     # push docker image
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWORD
     - docker push $ORG/$DOCKER_PROJECT:$BUILD_TAG
