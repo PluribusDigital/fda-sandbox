@@ -10,10 +10,6 @@ machine:
     DEPLOY_HOME: circle_deploy
 dependencies:
   pre:
-      # build docker image
-    - docker info
-    - docker build -t $ORG/$DOCKER_PROJECT:$CIRCLE_BUILD_NUM .:
-        timeout: 1800
     # python setup
     - cd gruve && python setup.py develop
 
@@ -35,6 +31,10 @@ deployment:
     # revert any changes circleci may have made during dependency installs and testing
     - git clean -df
     - git checkout -- .
+    # build docker image
+    - docker info
+    - docker build -t $ORG/$DOCKER_PROJECT:$CIRCLE_BUILD_NUM .:
+        timeout: 1800
     # push docker image
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWORD
     - docker push $ORG/$DOCKER_PROJECT:$BUILD_TAG
