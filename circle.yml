@@ -12,7 +12,6 @@ dependencies:
   pre:
     # python setup
     - cd gruve && python setup.py develop
-
   post:
     # load .env from s3
     - aws s3 cp s3://open-fda/.env .env
@@ -28,6 +27,9 @@ deployment:
   demo:
     branch: master
     commands:
+    # revert any changes circleci may have made during dependency installs and testing
+    - git clean -df
+    - git checkout -- .
     # build docker image
     - docker info
     - docker build -t $ORG/$DOCKER_PROJECT:$CIRCLE_BUILD_NUM .:
