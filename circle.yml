@@ -7,7 +7,6 @@ machine:
     DOCKER_PROJECT: fda-sandbox-web
     ORG: stsilabs
     EB_ENV: fda-sandbox
-    DEPLOY_HOME: circle_deploy
 dependencies:
   pre:
     # python setup
