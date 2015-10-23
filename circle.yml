@@ -7,7 +7,6 @@ machine:
     DOCKER_PROJECT: fda-sandbox-web
     ORG: stsilabs
     EB_ENV: fda-sandbox
-
 dependencies:
   pre:
     # python setup
@@ -28,6 +27,9 @@ deployment:
   demo:
     branch: demo4
     commands:
+    # revert any changes circleci may have made during dependency installs and testing
+    - git clean -df
+    - git checkout -- .
     # build docker image
     - docker info
     - docker build -t $ORG/$DOCKER_PROJECT:$CIRCLE_BUILD_NUM .:
