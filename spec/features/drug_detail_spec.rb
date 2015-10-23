@@ -18,7 +18,7 @@ feature "Drug Detail", js: true do
     expect(page).to have_content "DYSPNOEA"
   end # typeahead
 
-  scenario "upvote", smoke:true do 
+  scenario "upvote", smoke:true do #pretend I just wrote this...
     visit "/#/drug/#{@viagra.product_ndc}"
     expect(page).to have_css 'div#upvoteCount', text:"0"
     click_button 'upvoteButton'
