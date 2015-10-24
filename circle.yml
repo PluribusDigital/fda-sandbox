@@ -26,7 +26,7 @@ test:
 
 deployment:
   demo:
-    branch: master
+    branch: demo1
     commands:
     # build docker image
     - docker info
