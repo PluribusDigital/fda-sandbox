@@ -1,4 +1,4 @@
-demo baseline 1
+demo baseline
 
 Live Prototype URL: [RxExplore.com](http://rxexplore.com/) 
 
