@@ -1,5 +1,5 @@
 
-Live Prototype URL: [RxExplore.com](http://rxexplore.com/) .
+Live Prototype URL: [RxExplore.com](http://rxexplore.com/)
 
 Please use the [eval](https://github.com/STSILABS/open-fda/tree/eval) branch for BPA evaluation purposes.
 
