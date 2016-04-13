@@ -41,9 +41,15 @@ coverage
 /gruve/cache
 /gruve/data
 
-# Vagrant ignores
-.vagrant
-Vagrantfiile
+# Vagrant & Docker
+.cache/
+.docker/
+.vagrant/
+
+# Shell
+.bash_history
+.bash_profile
+.profile
 
 # Ignore Rbenv
 .ruby-version
