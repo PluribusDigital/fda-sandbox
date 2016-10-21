@@ -37,7 +37,7 @@
       ]
     },
     {
-      "name": "DOCKER_PROJECT>",
+      "name": "<DOCKER_PROJECT>",
       "image": "<ORG>/<DOCKER_PROJECT>:<TAG>",
       "environment": [
         {
