@@ -13,6 +13,7 @@
 
 # merge artifacts
 *.orig
+*.DS_Store
 
 # ignore Visual Studio project files
 *.sln
