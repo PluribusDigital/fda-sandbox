@@ -1,18 +1,14 @@
 postgres:
+  env_file: /home/vagrant/.env
   image: postgres:9.4
   ports:
-    - "5432"
-  environment:
-    POSTGRES_USER: openfda_demo
-    POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    - "2345:5432"
 web:
-  image: stsilabs/openfda-web
-  command: bundle exec rake db:setup
+  build: .
   ports:
-    - "80:80"
+    - "8000:80"
   links:
     - postgres:postgres
+  env_file: /home/vagrant/.env
   environment:
     RAILS_ENV: demo
-    OPENFDA_API_KEY: $OPENFDA_API_KEY
-    NEW_RELIC_KEY: $NEW_RELIC_KEY
