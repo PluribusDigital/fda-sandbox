@@ -23,7 +23,7 @@ feature "Drug Detail", js: true do
     expect(page).to have_css 'div#upvoteCount', text:"0"
     click_button 'upvoteButton'
     expect(page).to have_css 'div#upvoteCount', text:"1"
-  end
+  end 
 
   scenario "info on recalls" do
     visit "/#/drug/#{@viagra.product_ndc}" 
