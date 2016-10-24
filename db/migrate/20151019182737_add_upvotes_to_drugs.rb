@@ -3,3 +3,4 @@ class AddUpvotesToDrugs < ActiveRecord::Migration
     add_column :drugs, :upvotes, :integer, default:0
   end
 end # migration
+ 
