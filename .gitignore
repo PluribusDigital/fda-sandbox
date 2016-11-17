@@ -11,9 +11,13 @@
 # use install instead
 /node_modules
 
-# merge artifacts
+# merge artifacts, system files, etc.
 *.orig
+<<<<<<< Updated upstream
 *.DS_Store
+=======
+.DS_Store
+>>>>>>> Stashed changes
 
 # ignore Visual Studio project files
 *.sln
