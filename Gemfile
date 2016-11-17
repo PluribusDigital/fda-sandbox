@@ -1,18 +1,18 @@
 source 'https://rubygems.org'
 
-ruby '2.1.5'
- 
+ruby '2.1.5' 
+
 gem 'rails', '4.2.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18.2'
 # Bower to manage front-end dependencies
 gem 'bower-rails'
 # Use SCSS for stylesheets
-gem 'sass', '3.2.19' 
+gem 'sass', '3.2.19'
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
- 
+
 # HTTParty to interact with external REST APIs
 gem 'httparty'
 # Enable screen scraping via mechanize
@@ -36,13 +36,13 @@ group :production, :staging do
   gem "rails_serve_static_assets"
 end
 
-group :development do 
+group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem 'spring'
 end
 
-group :test do 
+group :test do
   gem "webmock" # test/mock http calls to external APIs
   gem "phantomjs"
   gem 'simplecov', :require => false # test coverage metrics
